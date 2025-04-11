@@ -191,7 +191,7 @@ void drawGame()
   */
 
   // Rahmen zeichnen    // Draw border
-  Canvas->drawRoundRect(grid_x_offset - grid_size / 2, grid_y_offset - grid_size / 2, grid_w * grid_size + 2, grid_h * grid_size + 2, 10, ST77XX_WHITE); // Rahmen zeichnen
+  Canvas->drawRoundRect(grid_x_offset - grid_size / 2 -1, grid_y_offset - grid_size / 2-1, grid_w * grid_size + 2, grid_h * grid_size + 2, 10, ST77XX_WHITE); // Rahmen zeichnen
   
   
   // Snake zeichnen    // Draw snake
