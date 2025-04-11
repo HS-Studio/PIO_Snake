@@ -82,6 +82,10 @@ void loop()
   if (joy_y < -50) snake_next_direction = 2; // up
   if (joy_y > 50) snake_next_direction = 0; // down
   
+  Serial.print(joy_x);
+  Serial.print(",");
+  Serial.println(joy_y);
+
   // Snake direction change    // Snake Richtungswechsel
   if (snake_next_direction != snake_direction)
   {
@@ -279,7 +283,7 @@ void growSnake()
     }
   }
 
-  if (score % 10 == 0) snake_speed++; // Alle 5 Punkte Geschwindigkeit erhöhen
+  if (score % 25 == 0) snake_speed++; // Alle 5 Punkte Geschwindigkeit erhöhen
   if (snake_speed > grid_size / 2) snake_speed = grid_size / 2; // Max. Geschwindigkeit = halbe Grid-Größe
 }
 
