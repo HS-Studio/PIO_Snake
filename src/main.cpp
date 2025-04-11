@@ -164,6 +164,32 @@ void drawGame()
 {
   Canvas->fillScreen(ST77XX_BLACK);
 
+  // Gitter zeichnen    // Draw grid    macht das Spiel sehr langsam
+  /*
+  for (int i = 0; i < grid_w ; i++)
+  {
+    for (int j = 0; j < grid_h; j++)
+    {
+      int x = i * grid_size + grid_x_offset - grid_size / 2 +1;
+      int y = j * grid_size + grid_y_offset - grid_size / 2 +1;
+      if (j % 2 == 0)
+      {
+        if (i % 2 == 0) Canvas->fillRect(x, y, grid_size, grid_size, 0x558A); // Gitter zeichnen
+        else Canvas->fillRect(x, y, grid_size, grid_size, 0x4428); // Gitter zeichnen
+      }
+      else
+      {
+        if (i % 2 == 0) Canvas->fillRect(x, y, grid_size, grid_size, 0x4428); // Gitter zeichnen
+        else Canvas->fillRect(x, y, grid_size, grid_size, 0x558A); // Gitter zeichnen
+      }
+    }
+  }
+  */
+
+  // Rahmen zeichnen    // Draw border
+  Canvas->drawRoundRect(grid_x_offset - grid_size / 2, grid_y_offset - grid_size / 2, grid_w * grid_size + 2, grid_h * grid_size + 2, 10, ST77XX_WHITE); // Rahmen zeichnen
+  
+  
   // Snake zeichnen    // Draw snake
   for (int i = 0; i < snake_lenght; i++)
   {
@@ -179,8 +205,6 @@ void drawGame()
   Canvas->setCursor(10, 10);
   Canvas->print("Score: ");
   Canvas->print(score);
-
-  Canvas->drawRoundRect(grid_x_offset - grid_size / 2, grid_y_offset - grid_size / 2, grid_w * grid_size + 2, grid_h * grid_size + 2, 10, ST77XX_WHITE); // Rahmen zeichnen
 
   tft.drawRGBBitmap(0, 0, Canvas->getBuffer(), canv_w, canv_h);
 }
