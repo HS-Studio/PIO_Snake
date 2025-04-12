@@ -12,6 +12,10 @@ void setup()
   Serial.begin(115200);
   delay(2000);
 
+  Serial.println("[INFO] Joystick Kalibrieren...");
+  Serial.println("[INFO] Den Joystick loslassen bevor das Programm gestartet wird.");
+  Serial.println("[INFO] Nach dem Start den Joystick in alle Richtungen bewegen");
+
   // Initialize Canvas    //Canvas initialisieren
   Canvas = (GFXcanvas16 *)malloc(sizeof(GFXcanvas16));
   if (!Canvas)
@@ -77,14 +81,17 @@ void loop()
   joy_y = customMap(joy_y, joyYMin, joyYCenter, joyYMax, -100, 100);
 
   // Joystick movement    // Joystick Bewegung
-  if (joy_x < -50) snake_next_direction = 3; // left
-  if (joy_x > 50) snake_next_direction = 1; // right
-  if (joy_y < -50) snake_next_direction = 2; // up
-  if (joy_y > 50) snake_next_direction = 0; // down
-  
-  Serial.print(joy_x);
-  Serial.print(",");
-  Serial.println(joy_y);
+  if (snake_direction == snake_next_direction)
+  {
+    if (joy_x < -75) snake_next_direction = 3; // left
+    else if (joy_x > 75) snake_next_direction = 1; // right
+    else if (joy_y < -75) snake_next_direction = 2; // up
+    else if (joy_y > 75) snake_next_direction = 0; // down
+  }
+
+  //Serial.print(joy_x);
+  //Serial.print(",");
+  //Serial.println(joy_y);
 
   // Snake direction change    // Snake Richtungswechsel
   if (snake_next_direction != snake_direction)
@@ -92,8 +99,9 @@ void loop()
     if ((snake_direction == 0 && snake_next_direction == 2) || (snake_direction == 2 && snake_next_direction == 0) ||
         (snake_direction == 1 && snake_next_direction == 3) || (snake_direction == 3 && snake_next_direction == 1))
     {
-    } // do nothing
-    else // if (snake[0].x == snake[0].x_next && snake[0].y == snake[0].y_next)
+      snake_next_direction = snake_direction; // Snake kann nicht in die entgegengesetzte Richtung fahren
+    }
+    else
     {
       snake_direction = snake_next_direction;
     }
